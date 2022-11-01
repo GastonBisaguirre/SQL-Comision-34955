@@ -1,0 +1,27 @@
+USE marketingtechs;
+
+CREATE VIEW Cantidad_Datos_IVR_Tucuman AS
+SELECT count(idIvr) as Cantidad_Datos, ciudadCliente as Provicia 
+FROM ivr
+WHERE ciudadCliente="TUCUMÁN";
+
+
+CREATE VIEW Cantidad_De_Datos_En_facebook AS
+SELECT	count(idFacebook) as Cantidad_Datos 
+FROM facebook;
+
+CREATE VIEW Cantidad_Telemarketer AS
+SELECT count(idTelemarketer) as Cantidad_Telemarketer
+FROM telemarketer;
+
+CREATE VIEW Precio_KitCamara AS
+SELECT nombreProducto as Nombre,sum(precioUnit) as Precio
+FROM producto
+WHERE nombreProducto="KIT CAMARA"
+;
+
+CREATE VIEW Stock_Alarmas AS
+SELECT nombreProducto as Nombre,sum(stock) as Stock
+FROM producto
+WHERE nombreProducto="ALARMA"
+;
