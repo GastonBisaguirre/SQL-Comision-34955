@@ -1,0 +1,77 @@
+CREATE DATABASE IF NOT EXISTS marketingtechs;
+
+USE marketingtechs;
+
+/* --------------------------------------------------CREACION DE LAS ENTIDADES---------------------------------------------------------------- */
+
+CREATE TABLE IF NOT EXISTS telemarketer (
+idTelemarketer INT NOT NULL PRIMARY KEY auto_increment,
+nombre varchar(255) NOT NULL,
+apellido varchar(255) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS asesor (
+idAsesor INT NOT NULL PRIMARY KEY auto_increment,
+nombre varchar(255) NOT NULL,
+apellido varchar(255) NOT NULL,
+provincia varchar(255) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS producto (
+idProducto INT NOT NULL PRIMARY KEY auto_increment,
+nombreProducto varchar(255) NOT NULL,
+precioUnit numeric(10,2) NOT NULL,
+stock numeric(10,0) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS facebook (
+idFacebook INT NOT NULL PRIMARY KEY auto_increment,
+telefonoCliente INT NOT NULL,
+fecha varchar(255) NOT NULL,
+nombreCliente varchar(255),
+ciudadCliente varchar(255),
+idTelemarketer INT,
+FOREIGN KEY (idTelemarketer) REFERENCES telemarketer(idTelemarketer)
+);
+
+CREATE TABLE IF NOT EXISTS ivr (
+idIvr INT NOT NULL PRIMARY KEY auto_increment,
+telefonoCliente INT NOT NULL,
+fecha varchar(255) NOT NULL,
+ciudadCliente varchar(255),
+idTelemarketer INT,
+FOREIGN KEY (idTelemarketer) REFERENCES telemarketer(idTelemarketer)
+);
+
+CREATE TABLE IF NOT EXISTS agendaFB (
+idAgendaFB INT NOT NULL PRIMARY KEY auto_increment,
+fecha varchar(255) NOT NULL,
+horaVisita varchar(255) NOT NULL,
+idProducto INT NOT NULL,
+FOREIGN KEY (idProducto) REFERENCES producto(idProducto),
+idAsesor INT NOT NULL,
+FOREIGN KEY (idAsesor) REFERENCES asesor(idAsesor),
+idFacebook INT NOT NULL,
+FOREIGN KEY (idFacebook) REFERENCES facebook (idFacebook)
+);
+
+CREATE TABLE IF NOT EXISTS agendaIVR (
+idAgendaIVR INT NOT NULL PRIMARY KEY auto_increment,
+fecha varchar(255) NOT NULL,
+horaVisita varchar(255) NOT NULL,
+idProducto INT NOT NULL,
+FOREIGN KEY (idProducto) REFERENCES producto(idProducto),
+idAsesor INT NOT NULL,
+FOREIGN KEY (idAsesor) REFERENCES asesor(idAsesor),
+idIvr INT NOT NULL,
+FOREIGN KEY (idIvr) REFERENCES ivr (idIvr)
+);
+
+CREATE TABLE IF NOT EXISTS ventas(
+idAsesor INT NOT NULL,
+FOREIGN KEY (idAsesor) REFERENCES asesor(idAsesor),
+idProducto INT NOT NULL,
+FOREIGN KEY (idProducto) REFERENCES producto(idProducto),
+contrato INT NOT NULL PRIMARY KEY auto_increment,
+cantidad INT NOT NULL
+);
