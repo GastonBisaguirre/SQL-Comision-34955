@@ -1,0 +1,53 @@
+USE marketingtechs;
+
+/* ----------------------------------PRIMER PROCEDURE----------------------------------*/
+DELIMITER //
+CREATE PROCEDURE check_e_insersion (IN id int,IN n varchar(100), IN px float, IN stk float)
+BEGIN
+if (select count(*) from producto where nombreProducto = n)>0 then
+	select 'Ya esta cargado este producto';
+else
+	insert into producto values (id,n,px,stk);
+end if;
+END;
+//
+
+/* --------------LARGA QUE EL PRODUCTO YA ESTA REGISTRADO */
+/*call check_e_insersion(NULL,'ALARMA',5,1); */
+
+/* --------------CARGA UN NUEVO PRODUCTO */
+/*call check_e_insersion(NULL,'LLAMADO',5,1);*/
+
+/* --------------MUESTRA LA TABLA PRODUCTO*/
+/*select * from producto;*/
+
+/* --------------BORRA LA FILA CREADA */
+/*DELETE from producto where idProducto = 3;*/
+
+/* --------------MUESTRA LA TABLA PRODUCTO*/
+/*select * from producto;*/
+
+/* ------------------------------------SEGUNDO PROCEDURE----------------------------------*/
+
+DELIMITER //
+CREATE PROCEDURE ordenamiento_por_apellido_tablaTelemarketer (in A_D varchar(100))
+BEGIN
+if A_D = 'a' then
+	select * from telemarketer order by apellido asc;
+elseif A_D = 'd' then
+	select * from telemarketer order by apellido desc;
+else
+	select 'Escribir a ó d';
+end if;
+
+END;
+//
+/*------------------------ORDENA LA TABLA TELEMARKETER DE FORMA ASCENDENTE*/
+/*call ordenamiento_por_apellido_tablaTelemarketer('A');*/
+
+/*------------------------ORDENA LA TABLA TELEMARKETER DE FORMA DESCENDENTE*/
+/*call ordenamiento_por_apellido_tablaTelemarketer('D');*/
+
+/*------------------------PIDE QUE SE INGRESE A ó D*/
+/*call ordenamiento_por_apellido_tablaTelemarketer('asfjdsk');*/
+
