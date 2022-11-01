@@ -1,0 +1,44 @@
+USE marketingtechs;
+
+/*1RA FUNCION PRECIO POR CANTIDAD*/
+DELIMITER //
+create function PrecioXCantidad (idProd INT) returns float
+deterministic
+begin
+	declare resultado float;
+    declare a float;
+    declare b float;
+    set a = (select precioUnit from producto where idProducto=idProd);
+    set b = (select stock from producto where idProducto=idProd);
+	set resultado = a*b; 
+	return resultado;
+end;
+//
+
+
+/* PROBANDO FUNCION 1
+Select PrecioXCantidad (1);
+select nombreProducto,precioUnit,stock,PrecioXCantidad (idProducto) as Total from producto;*/
+
+/* 2DA FUNCION CONCATENAR */
+
+DELIMITER //
+CREATE FUNCTION Concat_Nom_Ciud_Tel_FB (idFb INT)
+RETURNS VARCHAR (300)
+READS SQL DATA
+BEGIN
+	DECLARE RESPUESTA VARCHAR(300);
+	IF idFb=0 THEN
+    SET RESPUESTA = "INGRESAR UN NUMERO > 0";
+    ELSE
+    SET RESPUESTA = (SELECT CONCAT(nombreCliente,' ',ciudadCliente,' ',telefonoCliente)
+    FROM facebook WHERE idFacebook=idFb);
+    END IF;
+    RETURN RESPUESTA;
+END;
+// 
+
+/* PROBANDO FUNCION 2
+SELECT Concat_Nom_Ciud_Tel_FB (0);
+SELECT nombreCliente,ciudadCliente,telefonoCliente, Concat_Nom_Ciud_Tel_FB (idFacebook) as Concatenado from facebook;*/
+
