@@ -1,0 +1,36 @@
+USE marketingtechs;
+
+INSERT INTO producto (`idProducto`,`nombreProducto`,`precioUnit`,`stock`) VALUES (1,'ALARMA',5000.00,40);
+INSERT INTO producto (`idProducto`,`nombreProducto`,`precioUnit`,`stock`) VALUES (2,'KIT CAMARA',3000.00,30);
+
+INSERT INTO telemarketer (`idTelemarketer`,`nombre`,`apellido`) VALUES (1,'ALMENDRA','ROCCHI');
+INSERT INTO telemarketer (`idTelemarketer`,`nombre`,`apellido`) VALUES (2,'ESTEFANIA','LUQUE');
+INSERT INTO telemarketer (`idTelemarketer`,`nombre`,`apellido`) VALUES (3,'MARIA','DANO');
+INSERT INTO telemarketer (`idTelemarketer`,`nombre`,`apellido`) VALUES (4,'SOFIA','LOPEZ');
+
+INSERT INTO asesor (`idAsesor`,`nombre`,`apellido`,`provincia`) VALUES (1,'ALEXIS','MORALES','CORDOBA');
+INSERT INTO asesor (`idAsesor`,`nombre`,`apellido`,`provincia`) VALUES (2,'LUCAS','MORALES','TUCUMÁN');
+INSERT INTO asesor (`idAsesor`,`nombre`,`apellido`,`provincia`) VALUES (3,'MARTIN','VEGA','GBA SUR');
+INSERT INTO asesor (`idAsesor`,`nombre`,`apellido`,`provincia`) VALUES (4,'ANDRES','VAUTIER','CATAMARCA');
+
+INSERT INTO facebook (`idFacebook`,`telefonoCliente`,`fecha`,`nombreCliente`,`ciudadCliente`,`idTelemarketer`) VALUES (1,155666669,'1/9/2022','Antonella','CORDOBA',1);
+INSERT INTO facebook (`idFacebook`,`telefonoCliente`,`fecha`,`nombreCliente`,`ciudadCliente`,`idTelemarketer`) VALUES (2,155777779,'2/9/2022','Jennifer','TUCUMÁN',1);
+INSERT INTO facebook (`idFacebook`,`telefonoCliente`,`fecha`,`nombreCliente`,`ciudadCliente`,`idTelemarketer`) VALUES (3,155888889,'3/9/2022','Martina','GBA SUR',3);
+INSERT INTO facebook (`idFacebook`,`telefonoCliente`,`fecha`,`nombreCliente`,`ciudadCliente`,`idTelemarketer`) VALUES (4,155999998,'4/9/2022','Fernanda','CATAMARCA',3);
+
+INSERT INTO ivr (`idIvr`,`telefonoCliente`,`fecha`,`ciudadCliente`,`idTelemarketer`) VALUES (1,155166667,'2/9/2022','TUCUMÁN',2);
+INSERT INTO ivr (`idIvr`,`telefonoCliente`,`fecha`,`ciudadCliente`,`idTelemarketer`) VALUES (2,155177777,'3/9/2022','TUCUMÁN',4);
+INSERT INTO ivr (`idIvr`,`telefonoCliente`,`fecha`,`ciudadCliente`,`idTelemarketer`) VALUES (3,155188886,'4/9/2022','CATAMARCA',4);
+
+INSERT INTO agendafb (`idAgendaFB`,`fecha`,`horaVisita`,`idProducto`,`idAsesor`,`idFacebook`) VALUES (1,'1/9/2022','18:00',1,1,1);
+INSERT INTO agendafb (`idAgendaFB`,`fecha`,`horaVisita`,`idProducto`,`idAsesor`,`idFacebook`) VALUES (2,'2/9/2022','19:00',1,2,2);
+INSERT INTO agendafb (`idAgendaFB`,`fecha`,`horaVisita`,`idProducto`,`idAsesor`,`idFacebook`) VALUES (3,'3/9/2022','17:00',1,3,3);
+INSERT INTO agendafb (`idAgendaFB`,`fecha`,`horaVisita`,`idProducto`,`idAsesor`,`idFacebook`) VALUES (4,'4/9/2022','16:00',2,4,4);
+
+INSERT INTO agendaivr (`idAgendaIVR`,`fecha`,`horaVisita`,`idProducto`,`idAsesor`,`idIvr`) VALUES (1,'2/9/2022','19:00',1,2,1);
+INSERT INTO agendaivr (`idAgendaIVR`,`fecha`,`horaVisita`,`idProducto`,`idAsesor`,`idIvr`) VALUES (2,'3/9/2022','17:00',1,2,2);
+INSERT INTO agendaivr (`idAgendaIVR`,`fecha`,`horaVisita`,`idProducto`,`idAsesor`,`idIvr`) VALUES (3,'4/9/2022','16:00',2,4,3);
+
+INSERT INTO ventas (`idAsesor`,`idProducto`,`contrato`,`cantidad`) VALUES (2,2,1,5);
+INSERT INTO ventas (`idAsesor`,`idProducto`,`contrato`,`cantidad`) VALUES (3,1,2,3);
+INSERT INTO ventas (`idAsesor`,`idProducto`,`contrato`,`cantidad`) VALUES (4,1,3,4);
