@@ -1,0 +1,98 @@
+USE marketingtechs;
+
+/*---------------------------------------------bitacora FB--------------------------------------------*/
+
+/*****************************CREO TABLA LOG_FB*/
+
+create table if not exists log_FB(
+id int not null PRIMARY KEY auto_increment,
+fecha_hora datetime not null,
+usuario_id varchar(45),
+old_dato int,
+new_dato int,
+tipo_de_operacion varchar(45)
+);
+/*drop table log_FB;*/
+
+
+/********************DISPARA CUANDO SE INSERTA ALGUN NUMERO DE TELEFONO NUEVO*/
+
+create trigger insertar_log_FB
+after insert on facebook
+for each row
+insert into log_FB (fecha_hora,usuario_id,new_dato,tipo_de_operacion)
+values (now(),session_user(),NEW.telefonoCliente,'se carga nuevo telefono');
+
+/*BORRAR TRIGGER*/
+/*DROP TRIGGER IF EXISTS insertar_log_FB;*/
+
+/*INSERTO DATO EJEMPLO*/
+/*INSERT INTO facebook (`idFacebook`,`telefonoCliente`,`fecha`,`nombreCliente`,`ciudadCliente`,`idTelemarketer`) VALUES (NULL,155081970,'27/10/2022','Gaston','Mendoza',2);*/
+
+/*SELECT LOG_FB*/
+/*select * from log_FB;*/
+
+/***********************************DISPARA CUANDO SE BORRA ALGUN NUMERO DE TELEFONO Y GUARDA EL TELEFONO ELIMINADO*/
+
+
+create trigger delete_log_FB
+before delete on facebook
+for each row
+insert into log_FB (fecha_hora, usuario_id , old_dato , tipo_de_operacion)
+values (now(),session_user(),OLD.telefonoCliente,'se borro este telefono');
+/*DROP TRIGGER IF EXISTS delete_log_FB;*/
+
+/*INSERTO DATO EJEMPLO*/
+/*INSERT INTO facebook (`idFacebook`,`telefonoCliente`,`fecha`,`nombreCliente`,`ciudadCliente`,`idTelemarketer`) VALUES (NULL,155081970,'27/10/2022','Gaston','Mendoza',2);
+select * from facebook;
+Delete from facebook where idFacebook = 13;
+select * from log_FB;*/
+
+
+/*------------------------------------------bitacora Producto--------------------------------------*/
+
+
+/*******************CREO TABLA LOG_PRODUCTO*/
+
+create table if not exists log_Producto(
+id int not null PRIMARY KEY auto_increment,
+fecha_hora datetime not null,
+usuario_id varchar(45),
+old_dato varchar(45),
+new_dato varchar(45),
+tipo_de_operacion varchar(100)
+);
+/*drop table log_Producto;*/
+
+
+/***********************DISPARA CUANDO SE INSERTA UN PRODUCTO NUEVO*/
+
+create trigger insertar_log_Producto
+after insert on producto
+for each row
+insert into log_Producto (fecha_hora,usuario_id,new_dato,tipo_de_operacion)
+values (now(),session_user(),NEW.nombreProducto,'se carga nuevo producto');
+/*DROP TRIGGER IF EXISTS insertar_log_Producto;*/
+
+/*INSERTO DATO EJEMPLO*/
+/*select * from producto;
+INSERT INTO producto (`idProducto`,`nombreProducto`,`precioUnit`,`stock`) VALUES (NULL,'TELEFONO',2,1);
+select * from log_Producto;*/
+
+/**********************************GUARDA EL PX DE UN PRODUCTO ANTERIOR A QUE SE BORRE */
+
+
+create trigger delete_log_Producto
+before delete on producto
+for each row
+insert into log_Producto (fecha_hora,usuario_id,old_dato,tipo_de_operacion)
+values (now(),session_user(),OLD.precioUnit,'borraron este precio');
+/*DROP TRIGGER IF EXISTS delete_log_Producto;*/
+
+
+/*DELETE DATO EJEMPLO*/
+/*select * from producto;
+delete from producto where idProducto=9;
+INSERT INTO producto (`idProducto`,`nombreProducto`,`precioUnit`,`stock`) VALUES (NULL,'TELEFONO',2,1);
+select * from log_Producto;*/
+
